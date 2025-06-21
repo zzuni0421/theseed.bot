@@ -1,0 +1,43 @@
+import requests
+
+API_BASE = "https://api.theseed.io"  # 실제 API 주소로 바꾸세요
+API_TOKEN = "여기에_토큰_넣기"
+
+HEADERS = {
+    "Authorization": f"Bearer {API_TOKEN}",
+    "Content-Type": "application/json"
+}
+
+def get_documents():
+    url = f"{API_BASE}/documents"
+    resp = requests.get(url, headers=HEADERS)
+    resp.raise_for_status()
+    return resp.json()  # 문서 리스트 반환
+
+def get_document_content(doc_id):
+    url = f"{API_BASE}/document/{doc_id}"
+    resp = requests.get(url, headers=HEADERS)
+    resp.raise_for_status()
+    return resp.json()["content"]  # 문서 내용 반환
+
+def update_document_content(doc_id, new_content):
+    url = f"{API_BASE}/document/{doc_id}"
+    data = {"content": new_content}
+    resp = requests.put(url, headers=HEADERS, json=data)
+    resp.raise_for_status()
+    return resp.json()
+
+def main():
+    documents = get_documents()
+
+    for doc in documents:
+        doc_id = doc["id"]
+        content = get_document_content(doc_id)
+
+        if "[[분류:없음11]]" in content:
+            new_content = content.replace("[[분류:없음11]]", "[[분류:없음]]")
+            update_document_content(doc_id, new_content)
+            print(f"문서 {doc_id} 수정 완료!")
+
+if __name__ == "__main__":
+    main()
