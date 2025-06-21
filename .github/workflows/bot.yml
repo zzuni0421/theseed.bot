@@ -1,0 +1,26 @@
+name: Theseed 편집봇
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 매일 자정에 실행
+  workflow_dispatch: # 수동 실행도 가능
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Python 설치
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: 의존성 설치
+        run: pip install requests
+
+      - name: 봇 실행
+        env:
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+        run: |
+          python bot.py
