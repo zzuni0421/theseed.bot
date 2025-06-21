@@ -1,7 +1,7 @@
 import requests
 
 API_BASE = "https://api.theseed.io"  # 실제 API 주소로 바꾸세요
-API_TOKEN = "여기에_토큰_넣기"
+API_TOKEN = "gC9UBy3yHXnza6YIHuaJqGZ4hNRn+VYBaM9MKXjR+NVKwAdfexUmSQZspFHxwiA1o2PnV8mhSPHsTw4sH1ZPTD9djV94ETADq22n02ipyy73lZ3sNKXpMH2PymamZQlr/B7mo/zp/55yIexlQLoUaymdvtmS4eaGB/Pcj8BCF3k="
 
 HEADERS = {
     "Authorization": f"Bearer {API_TOKEN}",
